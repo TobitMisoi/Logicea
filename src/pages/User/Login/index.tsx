@@ -1,5 +1,5 @@
 import { Footer } from '@/components';
-import { login } from '@/services/logicea/api';
+// import { login } from '@/services/logicea/api';
 import { LockOutlined,UserOutlined } from '@ant-design/icons';
 import { LoginForm,ProFormText } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
@@ -79,7 +79,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       //
-      const msg: any = await login({ ...values, type });
+      // const msg: any = await login({ ...values, type });
 
       // if (msg.data.status === 'ok') {
       if (values?.username === 'admin' && values?.password === 'password') {
@@ -95,8 +95,7 @@ const Login: React.FC = () => {
         history.push(urlParams.get('redirect') || '/');
         return;
       }
-      console.log(msg);
-      setUserLoginState(msg.data);
+      setUserLoginState({ status: 'error', type: "account" });
     } catch (error) {
       const defaultLoginFailureMessage = intl.formatMessage({
         id: 'pages.login.failure',
