@@ -70,4 +70,7 @@ export default defineConfig({
     strategy: 'normal',
   },
   requestRecord: {},
+  analytics: {
+    ga_v2: "G-DVRSC4BDXB"
+  }
 });
