@@ -1,11 +1,11 @@
 import { Footer } from '@/components';
 import { login } from '@/services/logicea/api';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { LoginForm, ProFormText } from '@ant-design/pro-components';
+import { LockOutlined,UserOutlined } from '@ant-design/icons';
+import { LoginForm,ProFormText } from '@ant-design/pro-components';
 import { useEmotionCss } from '@ant-design/use-emotion-css';
-import { Helmet, SelectLang, history, useIntl, useModel } from '@umijs/max';
-import { Alert, Tabs, message } from 'antd';
-import React, { useState } from 'react';
+import { Helmet,SelectLang,history,useIntl,useModel } from '@umijs/max';
+import { Alert,Tabs,message } from 'antd';
+import React,{ useState } from 'react';
 import { flushSync } from 'react-dom';
 
 const Lang = () => {
@@ -78,11 +78,16 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (values: API.LoginParams) => {
     try {
+      //
       const msg: any = await login({ ...values, type });
-      if (msg.data.status === 'ok') {
+
+      // if (msg.data.status === 'ok') {
+      if (values?.username === 'admin' && values?.password === 'password') {
+        // jwt token to replace this!
+        localStorage.setItem('logicea_token', JSON.stringify(values, null, 1));
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
-          defaultMessage: '登录成功！',
+          defaultMessage: 'Login successful',
         });
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
@@ -149,24 +154,21 @@ const Login: React.FC = () => {
             items={[
               {
                 key: 'account',
-                label: intl.formatMessage({
-                  id: 'pages.login.accountLogin.tab',
-                  defaultMessage: '账户密码登录',
-                }),
+                label: 'Account Login',
               },
             ]}
           />
 
           {status === 'error' && loginType === 'account' && (
-            <LoginMessage content={'Error Logging in!'} />
+            <LoginMessage content={'Error Logging in! Check if username and password is correct'} />
           )}
           <Alert
             type="info"
             description={
-              <div>
-                <p>Username: admin</p>
-                <p>Password: password</p>
-              </div>
+              <p>
+                <span style={{ color: '#a1a1a1' }}> Username:</span> admin{' '}
+                <span style={{ color: '#a1a1a1' }}>Password:</span> password
+              </p>
             }
           />
           <br />
@@ -185,6 +187,7 @@ const Login: React.FC = () => {
                     message: 'Username is required',
                   },
                 ]}
+                initialValue={'admin'}
               />
               <ProFormText.Password
                 name="password"
@@ -199,6 +202,7 @@ const Login: React.FC = () => {
                     message: 'Password is required',
                   },
                 ]}
+                initialValue={'password'}
               />
             </>
           )}

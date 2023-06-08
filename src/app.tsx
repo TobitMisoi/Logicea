@@ -1,13 +1,11 @@
-import { AvatarDropdown,AvatarName,Footer } from '@/components';
+import { AvatarDropdown, AvatarName, Footer } from '@/components';
 import { currentUser as queryCurrentUser } from '@/services/logicea/api';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
-import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history } from '@umijs/max';
 import { Space } from 'antd';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
-const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
 export async function getInitialState(): Promise<{
@@ -42,8 +40,7 @@ export async function getInitialState(): Promise<{
   };
 }
 
-export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
-  console.log(initialState);
+export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
     avatarProps: {
       src: initialState?.currentUser?.avatar,
@@ -56,7 +53,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
+      if (!initialState?.currentUser && location.pathname !== loginPath && localStorage.getItem("logicea_token")) {
         history.push(loginPath);
       }
     },
@@ -85,30 +82,9 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
             />
           </svg>
         </div>
-        <div style={{  height: 'fit-content' }}>Logicea</div>
+        <div style={{ height: 'fit-content' }}>Logicea</div>
       </Space>
     ),
-
-    childrenRender: (children) => {
-      return (
-        <>
-          {children}
-          {isDev && (
-            <SettingDrawer
-              disableUrlParams
-              enableDarkTheme
-              settings={initialState?.settings}
-              onSettingChange={(settings) => {
-                setInitialState((preInitialState) => ({
-                  ...preInitialState,
-                  settings,
-                }));
-              }}
-            />
-          )}
-        </>
-      );
-    },
     ...initialState?.settings,
   };
 };

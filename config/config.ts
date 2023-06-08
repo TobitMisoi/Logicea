@@ -25,7 +25,7 @@ export default defineConfig({
 
   initialState: {},
 
-  title: 'Ant Design Pro',
+  title: 'Logicea',
   layout: {
     locale: false,
     ...defaultSettings,

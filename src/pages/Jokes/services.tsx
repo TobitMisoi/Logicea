@@ -1,8 +1,6 @@
 
 import { request } from '@@/plugin-request';
 
-console.log(API_DOMAIN)
-
 
 export async function queryJokes(params: any) {
   return request(API_DOMAIN + 'jokes', {

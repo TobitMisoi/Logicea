@@ -35,6 +35,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
         }),
       });
     }
+    localStorage.removeItem('logicea_token');
   };
   const actionClassName = useEmotionCss(({ token }) => {
     return {

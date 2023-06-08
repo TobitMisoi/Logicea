@@ -46,7 +46,7 @@ const Jokes = () => {
           {
             title: 'Created Date',
             dataIndex: 'CreatedAt',
-            renderText: (text) => moment(text).format('DD MMM YYYY hh:mm A'),
+            renderText: (text) => moment(text).format('DD MMM YYYY'),
           },
           {
             title: 'Views',

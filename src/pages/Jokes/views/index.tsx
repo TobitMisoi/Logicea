@@ -127,6 +127,7 @@ const Joke = () => {
                 onConfirm={async () => {
                   try {
                     deleteJoke(jokeId);
+                    message.success("Joke deleted successfully")
                     history.back();
                   } catch (error) {
                     return false;
