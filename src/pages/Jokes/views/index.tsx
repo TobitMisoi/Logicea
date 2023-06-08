@@ -43,7 +43,7 @@ const Joke = () => {
       onBack={() => history.back()}
     >
       <Row gutter={[16, 16]}>
-        <Col span={editing ? 20 : 24}>
+        <Col lg={editing ? 20 : 24}>
           <ProCard title={editing ? 'You are updating the joke' : 'Add a new joke'}>
             <div>
               {!loading && (
@@ -126,7 +126,7 @@ const Joke = () => {
           </ProCard>
         </Col>
         {editing ? (
-          <Col span={4}>
+          <Col xs={24} sm={24} lg={4}>
             <ProCard title="Actions">
               <Popconfirm
                 title="Are you sure you want to delete?"
