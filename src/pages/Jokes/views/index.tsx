@@ -86,7 +86,13 @@ const Joke = () => {
                   }}
                 >
                   <ProForm.Group>
-                    <ProFormText width="lg" label="Title" name="Title" initialValue={data?.Title} />
+                    <ProFormText
+                      rules={[{ required: editing ? false : true }]}
+                      width="lg"
+                      label="Title"
+                      name="Title"
+                      initialValue={data?.Title}
+                    />
                   </ProForm.Group>
                   <ProForm.Group>
                     <ProFormTextArea
@@ -127,7 +133,7 @@ const Joke = () => {
                 onConfirm={async () => {
                   try {
                     deleteJoke(jokeId);
-                    message.success("Joke deleted successfully")
+                    message.success('Joke deleted successfully');
                     history.back();
                   } catch (error) {
                     return false;
