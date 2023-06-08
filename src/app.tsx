@@ -75,11 +75,10 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     onPageChange: () => {
       const { location } = history;
       if (
-        !initialState?.currentUser &&
-        location.pathname !== loginPath &&
-        localStorage.getItem('logicea_token')
+        (!initialState?.currentUser && location.pathname !== loginPath) ||
+        !localStorage.getItem('logicea_token')
       ) {
-        history.push(loginPath);
+        history.push(`${loginPath}?redirect=${location.pathname}`);
       }
     },
     locale: undefined,

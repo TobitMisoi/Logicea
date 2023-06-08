@@ -71,6 +71,6 @@ export default defineConfig({
   },
   requestRecord: {},
   analytics: {
-    ga_v2: process.env.GAVK
+    ga_v2: process.env.GAVK ?? "G-DVRSC4BDXB"
   }
 });
