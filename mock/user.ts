@@ -25,18 +25,16 @@ let access = ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site' ? 'adm
 const getAccess = () => {
   return access;
 };
-
-// 代码中会兼容本地 service mock 以及部署站点的静态数据
 export default {
   // 支持值为 Object 和 Array
   'GET /api/currentUser': (req: Request, res: Response) => {
-    if (!getAccess()) {
+    if (getAccess()) {
       res.status(401).send({
         data: {
           isLogin: false,
         },
         errorCode: '401',
-        errorMessage: '请先登录！',
+        errorMessage: 'Please log in first!',
         success: true,
       });
       return;
